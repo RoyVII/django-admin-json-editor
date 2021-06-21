@@ -1,24 +1,6 @@
-<div id="{{ name }}_editor"></div>
-
-<script>
-    var container = document.getElementById("{{ name }}_editor");
-    var options = {{ editor_options|safe }};
-    var {{ name }}_editor = new JSONEditor(container, options);
-    {{ name }}_editor.on('change', function () {
-        var errors = {{ name }}_editor.validate();
-        if (errors.length) {
-            console.log(errors);
-        }
-        else {
-            var json = {{ name }}_editor.getValue();
-            document.getElementById("id_{{ name }}").value = JSON.stringify(json);
-        }
-    });
-    {% if data %}
-        var json = {{ data|safe }};
-        {{ name }}_editor.setValue(json);
-    {% endif %}
-</script>
+<div id="{{ name }}_editor" 
+    data-sceditor='{{ sceditor }}' data-options='{{ options|safe }}'
+    data-data = '{{ data|safe }}'></div>
 
 <textarea cols="40" id="id_{{ name }}" name="{{ name }}" rows="10" required=""
           style="display: none">{{ data|safe }}</textarea>
